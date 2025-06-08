@@ -3,6 +3,7 @@
 
     <uses-permission android:name="miui.permission.WRITE_STEPS" />
     <uses-permission android:name="miui.permission.READ_STEPS" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
 
     <application
         android:name=".StepApplication"
