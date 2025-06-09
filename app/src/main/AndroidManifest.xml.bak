@@ -15,8 +15,7 @@
         <activity
             android:name=".activitys.Main"
             android:windowSoftInputMode="stateHidden"
-            android:alwaysRetainTaskState="true"
-            android:exported="true">
+            android:alwaysRetainTaskState="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
