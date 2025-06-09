@@ -19,7 +19,7 @@ import cn.xylin.mistep.StepApplication;
 import cn.xylin.mistep.utils.Shared;
 import cn.xylin.mistep.utils.StepUtil;
 import cn.xylin.mistep.utils.Util;
-import cn.xylin.mistep.utils.RequestPermissions;
+// import cn.xylin.mistep.utils.RequestPermissions;
 import cn.xylin.mistep.works.AutoModifySteps;
 
 import android.os.Build;
