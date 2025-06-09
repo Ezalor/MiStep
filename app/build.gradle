@@ -15,15 +15,16 @@ android {
         // 如果有需要，可以添加 testInstrumentationRunner 等配置
     }
 
-    buildTypes {
-        signingConfigs {
-            release {
-                storeFile file('release.keystore')  // 指定签名文件
-                storePassword System.getenv("KEYSTORE_PASSWORD")
-                keyAlias System.getenv("KEY_ALIAS")
-                keyPassword System.getenv("KEY_PASSWORD")
-            }
+    signingConfigs {
+        release {
+            storeFile file('release.keystore')  // 指定签名文件
+            storePassword System.getenv("KEYSTORE_PASSWORD")
+            keyAlias System.getenv("KEY_ALIAS")
+            keyPassword System.getenv("KEY_PASSWORD")
         }
+    }
+
+    buildTypes {
         release {
             minifyEnabled false
             signingConfig signingConfigs.release
