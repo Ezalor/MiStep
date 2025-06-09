@@ -16,12 +16,17 @@ android {
     }
 
     buildTypes {
+        signingConfigs {
+            release {
+                storeFile file('release.keystore')  // 指定签名文件
+                storePassword System.getenv("KEYSTORE_PASSWORD")
+                keyAlias System.getenv("KEY_ALIAS")
+                keyPassword System.getenv("KEY_PASSWORD")
+            }
+        }
         release {
             minifyEnabled false
-            storeFile file("release.keystore")
-            storePassword System.getenv("KEYSTORE_PASSWORD")
-            keyAlias System.getenv("KEY_ALIAS")
-            keyPassword System.getenv("KEY_PASSWORD")
+            signingConfig signingConfigs.release
         }
         debug {
             // debug 特有配置
