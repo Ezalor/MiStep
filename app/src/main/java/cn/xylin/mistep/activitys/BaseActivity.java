@@ -34,6 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState); // 必须最先调用
+        super.setContentView(R.layout.content_view);
     
         // 先请求权限（异步，不会阻塞）
         checkAndRequestPermission();
@@ -55,7 +56,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
     
     private void initAfterPermissionGranted() {
-        setContentView(R.layout.content_view);
         appActivity = this;
         StepApplication.add(appActivity);
         // 初始化控件
