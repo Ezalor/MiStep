@@ -21,6 +21,16 @@ import cn.xylin.mistep.utils.StepUtil;
 import cn.xylin.mistep.utils.Util;
 import cn.xylin.mistep.works.AutoModifySteps;
 
+import android.os.Build;
+import android.os.Bundle;
+import android.Manifest;
+import androidx.core.content.ContextCompat;
+import android.content.pm.PackageManager;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+
 /**
  * @author XyLin
  * @date 2021/1/25 23:06:22
@@ -44,6 +54,8 @@ public class Main extends BaseActivity implements View.OnClickListener, Compound
     private Shared shared;
     private boolean isRootMode;
     private TimePickerDialog timeDialog;
+
+    private static final int REQUEST_CODE_ACTIVITY_RECOGNITION = 100;
 
     @Override
     void initActivityControl() {
@@ -96,6 +108,7 @@ public class Main extends BaseActivity implements View.OnClickListener, Compound
         if (!shared.getValue(USER_SETTING, CHECK_RECORD_APP, false)) {
             checkRecordAppState();
         }
+        checkAndRequestPermission();
     }
 
     private void checkNewDay() {
@@ -224,6 +237,29 @@ public class Main extends BaseActivity implements View.OnClickListener, Compound
                     })
                     .setPositiveButton(R.string.dialog_record_btn_ok, null)
                     .show();
+        }
+    }
+
+    private void checkAndRequestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, REQUEST_CODE_ACTIVITY_RECOGNITION);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE_ACTIVITY_RECOGNITION) {
+            if (!(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                // 授予权限
+                updateTodaySteps();
+            } else {
+                // 权限被拒绝
+                Toast.makeText(this, "权限被拒绝，无法读取步数", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
