@@ -35,22 +35,24 @@ public class Shared {
         return this;
     }
 
-    public Object getValue(String xmlName, String key, Object defValue) {
+    public <T> T getValue(String xmlName, String key, T defValue) {
         if (sharedMap.containsKey(xmlName)) {
             SharedPreferences preferences = sharedMap.get(xmlName);
+            T retValue;
             if (defValue instanceof Integer) {
-                return preferences.getInt(key, (Integer) defValue);
+                retValue = (T) (Integer) preferences.getInt(key, (Integer) defValue);
             } else if (defValue instanceof Boolean) {
-                return preferences.getBoolean(key, (Boolean) defValue);
+                retValue = (T) (Boolean) preferences.getBoolean(key, (Boolean) defValue);
             } else if (defValue instanceof Float) {
-                return preferences.getFloat(key, (Float) defValue);
+                retValue = (T) (Float) preferences.getFloat(key, (Float) defValue);
             } else if (defValue instanceof Long) {
-                return preferences.getLong(key, (Long) defValue);
+                retValue = (T) (Long) preferences.getLong(key, (Long) defValue);
             } else if (defValue instanceof String) {
-                return preferences.getString(key, (String) defValue);
+                retValue = (T) preferences.getString(key, (String) defValue);
             } else {
-                return defValue;
+                retValue = defValue;
             }
+            return retValue;
         }
         return defValue;
     }
