@@ -253,7 +253,7 @@ public class Main extends BaseActivity implements View.OnClickListener, Compound
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CODE_ACTIVITY_RECOGNITION) {
-            if (!(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // 授予权限
                 updateTodaySteps();
             } else {
