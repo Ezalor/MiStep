@@ -3,6 +3,8 @@ plugins {
 }
 
 android {
+    namespace "cn.xylin.mistep"
+
     compileSdk 33
 
     defaultConfig {

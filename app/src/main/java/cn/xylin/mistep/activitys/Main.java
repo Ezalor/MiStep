@@ -44,7 +44,18 @@ public class Main extends BaseActivity implements View.OnClickListener, Compound
     private Shared shared;
     private boolean isRootMode;
     private TimePickerDialog timeDialog;
-
+    private static final int REQUEST_CODE_ACTIVITY_RECOGNITION = 100;
+    
+    private void checkAndRequestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, REQUEST_CODE_ACTIVITY_RECOGNITION);
+            } else {
+                // 权限已授予
+            }
+        }
+    }
     @Override
     void initActivityControl() {
         isCanExitActivity = true;
@@ -56,6 +67,7 @@ public class Main extends BaseActivity implements View.OnClickListener, Compound
         shTimingModify = findViewById(R.id.shTimingModify);
         shTimingNotification = findViewById(R.id.shTimingNotification);
         shared = Shared.getShared();
+        checkAndRequestPermission();
     }
 
     @Override
