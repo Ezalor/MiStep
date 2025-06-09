@@ -56,6 +56,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     
     private void initAfterPermissionGranted() {
         setContentView(R.layout.content_view);
+        appActivity = this;
+        StepApplication.add(appActivity);
         // 初始化控件
         trBar = findViewById(R.id.trBar);
         setSupportActionBar(trBar);
