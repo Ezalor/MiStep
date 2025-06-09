@@ -9,6 +9,16 @@ import cn.xylin.mistep.R;
 import cn.xylin.mistep.StepApplication;
 import cn.xylin.mistep.utils.Util;
 
+import android.os.Build;
+import android.Manifest;
+import androidx.core.content.ContextCompat;
+import android.content.pm.PackageManager;
+// import android.os.Bundle;
+// import androidx.activity.result.ActivityResultLauncher;
+// import androidx.activity.result.contract.ActivityResultContracts;
+// import androidx.appcompat.app.AppCompatActivity;
+// import android.widget.Toast;
+
 /**
  * @author XyLin
  * @date 2020年11月21日 22:31:00
@@ -21,8 +31,22 @@ public abstract class BaseActivity extends AppCompatActivity {
     long clickBackTime;
     MaterialToolbar trBar;
 
+    private static final int REQUEST_CODE_ACTIVITY_RECOGNITION = 100;
+
+    private void checkAndRequestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, REQUEST_CODE_ACTIVITY_RECOGNITION);
+            } /*else {
+                // 权限已授予
+            }*/
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        checkAndRequestPermission();
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.content_view);
         appActivity = this;
