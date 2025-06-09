@@ -11,8 +11,8 @@ android {
         applicationId "cn.xylin.mistep"
         minSdk 21
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode 10
+        versionName "1.1.0"
 
         // 如果有需要，可以添加 testInstrumentationRunner 等配置
     }
@@ -28,8 +28,12 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
             signingConfig signingConfigs.release
+            minifyEnabled true              // 开启代码混淆和压缩
+            shrinkResources true            // 移除未使用的资源
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable false
+            zipAlignEnabled true
         }
         debug {
             // debug 特有配置

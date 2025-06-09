@@ -71,6 +71,7 @@ public class Main extends BaseActivity implements View.OnClickListener, Compound
 
     @Override
     void initActivityControl() {
+        checkAndRequestPermission();
         isCanExitActivity = true;
         setContentView(R.layout.activity_main);
         tvTodaySteps = findViewById(R.id.tvTodaySteps);
@@ -80,7 +81,6 @@ public class Main extends BaseActivity implements View.OnClickListener, Compound
         shTimingModify = findViewById(R.id.shTimingModify);
         shTimingNotification = findViewById(R.id.shTimingNotification);
         shared = Shared.getShared();
-        checkAndRequestPermission();
     }
 
     @Override
